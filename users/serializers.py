@@ -1,5 +1,9 @@
+from typing import cast
+
+from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from .models import Group, Student, Teacher
+
+from .models import CustomUserManager, Group, Student, Teacher, User
 
 
 class GroupSerializer(serializers.ModelSerializer):
@@ -13,6 +17,20 @@ class GroupSerializer(serializers.ModelSerializer):
             "status",
             "created_at",
             "updated_at",
+        ]
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = [
+            "id",
+            "first_name",
+            "last_name",
+            "phone_number",
+            "email",
+            "role",
+            "password",
         ]
 
 
@@ -51,25 +69,66 @@ class StudentSerializer(serializers.ModelSerializer):
 
 
 class TeacherSerializer(serializers.ModelSerializer):
+    # User-specific fields
+    id = serializers.UUIDField(source="user.id", read_only=True)
+    email = serializers.EmailField(source="user.email")
+    password = serializers.CharField(source="user.password", write_only=True)
+    first_name = serializers.CharField(source="user.first_name")
+    last_name = serializers.CharField(source="user.last_name")
+    phone_number = serializers.CharField(source="user.phone_number")
+    role = serializers.CharField(source="user.role", read_only=True)
+
+    # Teacher-specific fields
+    specialization = serializers.CharField()
+    qualification = serializers.CharField()
+    hired_date = serializers.DateField()
+    created_at = serializers.DateTimeField(read_only=True)
+    updated_at = serializers.DateTimeField(read_only=True)
+
     class Meta:
         model = Teacher
         fields = [
             "id",
-            "user",
+            "first_name",
+            "last_name",
+            "phone_number",
+            "email",
+            "password",
             "specialization",
             "qualification",
             "hired_date",
+            "role",
             "created_at",
             "updated_at",
         ]
 
+    def create(self, validated_data):
+        user_data = validated_data.pop("user")
+        password = user_data.pop("password")
+
+        User = get_user_model()
+        manager = cast(CustomUserManager, User.objects)
+        user = manager.create_user(
+            first_name=user_data["first_name"],
+            last_name=user_data["last_name"],
+            phone_number=user_data["phone_number"],
+            email=user_data["email"],
+            password=password,
+            role="TEACHER",
+            is_staff=True,
+        )
+
+        return Teacher.objects.create(user=user, **validated_data)
+
     def validate(self, attrs):
-        user = attrs["user"]
+        User = get_user_model()
+        user_data = attrs.get("user", {})
+        email = user_data.get("email")
 
-        if user.role != "TEACHER":
-            raise serializers.ValidationError("Linked user must have role=TEACHER")
+        if User.objects.filter(email=email).exists():
+            raise serializers.ValidationError("A user with this email already exists")
 
-        if Student.objects.filter(user=user).exists():
+        if User.objects.filter(email=email, role="STUDENT").exists():
             raise serializers.ValidationError(
                 "A user cannot be both a Teacher and a Student"
             )

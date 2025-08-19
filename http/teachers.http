@@ -1,0 +1,23 @@
+### access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU1NjA0OTkwLCJpYXQiOjE3NTU2MDMxOTAsImp0aSI6IjhmYzA0ZTgxNmU2YTRiOTU4MGU4OTU2OWQwNTM4YzNhIiwidXNlcl9pZCI6IjVlM2I5MDUzLTI4MGQtNDExZS05Zjg3LWM5MDQ1ZDc4M2E3NSJ9.FBX_mhF-0q6PVobnr1cZTgRczs-WNdVnR-5_gil8lq0
+
+
+### create teacher
+POST http://localhost:8000/api/v1/teachers/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU1NjA0OTkwLCJpYXQiOjE3NTU2MDMxOTAsImp0aSI6IjhmYzA0ZTgxNmU2YTRiOTU4MGU4OTU2OWQwNTM4YzNhIiwidXNlcl9pZCI6IjVlM2I5MDUzLTI4MGQtNDExZS05Zjg3LWM5MDQ1ZDc4M2E3NSJ9.FBX_mhF-0q6PVobnr1cZTgRczs-WNdVnR-5_gil8lq0
+Content-Type: application/json
+
+{
+	"first_name": "John",
+	"last_name": "Doe",
+	"phone_number": "+998938765432",
+	"email": "john@example.com",
+	"password": "StrongWord567",
+	"specialization": "English",
+	"qualification": "Bachelor's in Education",
+	"hired_date": "2024-10-12"
+}
+
+
+### read all teachers
+GET http://localhost:8000/api/v1/teachers/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU1NTk3MjU3LCJpYXQiOjE3NTU1OTU0NTcsImp0aSI6IjM2ZmY5MjVmN2FiMTQ2ODdhOTU1Y2RhODU1ZWUwZTdhIiwidXNlcl9pZCI6IjVlM2I5MDUzLTI4MGQtNDExZS05Zjg3LWM5MDQ1ZDc4M2E3NSJ9.g0PAY6GdchuEVxp9P55yXebc0w172V3cUOnHmDY7xtE

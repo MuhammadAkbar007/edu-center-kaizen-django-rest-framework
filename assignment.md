@@ -4,8 +4,9 @@
 Project requirement is to manage the education center’s students, teachers and groups.
 
 ## What does happen in the project?
-- [ ] Groups Teachers and Students.
-- [ ] Admin adds a teacher and also adds a group.
+- [x] Groups Teachers and Students.
+- [x] Admin adds a teacher.
+- [-] Admin adds a teacher and also adds a group.
 - [ ] When a group is added, a teacher is assigned to it.
 - [ ] Adding a student is done by the Admin or a teacher.
 - [ ] When a student is added, he is assigned to a group.
@@ -16,4 +17,5 @@ Project requirement is to manage the education center’s students, teachers and
 
 ## What are the conditions?
 - [ ] Create group teacher and student models/entities and prepare their full CRUD part.
-- [ ] Write appropriate fields for group teacher and student entities.
+- [x] Write appropriate fields for group teacher and student entities.
+
