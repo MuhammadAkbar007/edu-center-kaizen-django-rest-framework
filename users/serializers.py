@@ -1,9 +1,10 @@
 from typing import cast
 
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 from rest_framework import serializers
 
-from .models import CustomUserManager, Group, Student, Teacher, User
+from .models import CustomUserManager, Group, Student, Teacher
 
 
 class GroupSerializer(serializers.ModelSerializer):
@@ -17,20 +18,6 @@ class GroupSerializer(serializers.ModelSerializer):
             "status",
             "created_at",
             "updated_at",
-        ]
-
-
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = [
-            "id",
-            "first_name",
-            "last_name",
-            "phone_number",
-            "email",
-            "role",
-            "password",
         ]
 
 
@@ -79,9 +66,13 @@ class TeacherSerializer(serializers.ModelSerializer):
     role = serializers.CharField(source="user.role", read_only=True)
 
     # Teacher-specific fields
-    specialization = serializers.CharField()
-    qualification = serializers.CharField()
-    hired_date = serializers.DateField()
+    specialization = serializers.CharField(
+        required=False, allow_blank=True, allow_null=True
+    )
+    qualification = serializers.CharField(
+        required=False, allow_blank=True, allow_null=True
+    )
+    hired_date = serializers.DateField(required=False, default=timezone.now)
     created_at = serializers.DateTimeField(read_only=True)
     updated_at = serializers.DateTimeField(read_only=True)
 
@@ -119,6 +110,25 @@ class TeacherSerializer(serializers.ModelSerializer):
         )
 
         return Teacher.objects.create(user=user, **validated_data)
+
+    def update(self, instance, validated_data):
+        user_data = validated_data.get("user", {})
+        password = user_data.pop("password", None)
+
+        user = instance.user
+        for attr, value in user_data.items():
+            setattr(user, attr, value)
+
+        if password:
+            user.set_password(password)
+        user.save()
+
+        for attr, value in validated_data.items():
+            if attr != "user":
+                setattr(instance, attr, value)
+        instance.save()
+
+        return instance
 
     def validate(self, attrs):
         User = get_user_model()

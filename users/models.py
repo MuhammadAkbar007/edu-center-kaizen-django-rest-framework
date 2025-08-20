@@ -106,8 +106,8 @@ class Student(models.Model):
 
 class Teacher(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    specialization = models.CharField(max_length=100)
-    qualification = models.CharField(max_length=100)
+    specialization = models.CharField(max_length=100, blank=True, null=True)
+    qualification = models.CharField(max_length=100, blank=True, null=True)
     hired_date = models.DateField(default=timezone.now)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

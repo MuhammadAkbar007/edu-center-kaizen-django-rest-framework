@@ -10,11 +10,19 @@ class StudentViewSet(viewsets.ModelViewSet):
     serializer_class = StudentSerializer
     permission_classes = [IsAuthenticated]
 
+    def perform_destroy(self, instance):
+        user = instance.user
+        user.delete()
+
 
 class TeacherViewSet(viewsets.ModelViewSet):
     queryset = Teacher.objects.all()
     serializer_class = TeacherSerializer
     permission_classes = [IsAdmin]
+
+    def perform_destroy(self, instance):
+        user = instance.user
+        user.delete()
 
 
 class GroupViewSet(viewsets.ModelViewSet):
