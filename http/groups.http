@@ -1,0 +1,34 @@
+### create group
+POST http://localhost:8000/api/v1/groups/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU1Njk3MjQ4LCJpYXQiOjE3NTU2ODY0NDgsImp0aSI6IjA4ODllYmM1YWJjODQ1MjU5MTQ3MzNjMjZlOTZhODkxIiwidXNlcl9pZCI6IjVlM2I5MDUzLTI4MGQtNDExZS05Zjg3LWM5MDQ1ZDc4M2E3NSJ9.6LqFaiw-nt8_4oZjlDOkkFxNwLPdcILEK40PFl8Rw6g
+Content-Type: application/json
+
+{
+	"name": "Group A",
+	"description": "First year students",
+	"subject": "Mathematics",
+	"status": "STUDYING",
+	"teacher_id": "73afdc93-7b87-4431-8aad-db8c9d3ec7e6"
+}
+
+### get all groups inside pagination
+GET http://localhost:8000/api/v1/groups/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU1Njk3MjQ4LCJpYXQiOjE3NTU2ODY0NDgsImp0aSI6IjA4ODllYmM1YWJjODQ1MjU5MTQ3MzNjMjZlOTZhODkxIiwidXNlcl9pZCI6IjVlM2I5MDUzLTI4MGQtNDExZS05Zjg3LWM5MDQ1ZDc4M2E3NSJ9.6LqFaiw-nt8_4oZjlDOkkFxNwLPdcILEK40PFl8Rw6g
+
+### get group by id
+GET http://localhost:8000/api/v1/groups/848a45a6-9a45-4fa6-b0a6-a552e1964c33/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU1Njk3ODcyLCJpYXQiOjE3NTU2ODcwNzIsImp0aSI6IjJjOGJjYWMxZTQ0NTQ5MWNiMWIzMmY2YWM3NzNmYTliIiwidXNlcl9pZCI6IjczYWZkYzkzLTdiODctNDQzMS04YWFkLWRiOGM5ZDNlYzdlNiJ9._wkmy6MmC8RGk4st3MeeIBSq1kcIGAVzsUJG7hiWGOY
+
+### update group by id
+PATCH http://localhost:8000/api/v1/groups/04501c3c-1c01-4080-983d-0c4a9c9e3db3/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU1Njk3MjQ4LCJpYXQiOjE3NTU2ODY0NDgsImp0aSI6IjA4ODllYmM1YWJjODQ1MjU5MTQ3MzNjMjZlOTZhODkxIiwidXNlcl9pZCI6IjVlM2I5MDUzLTI4MGQtNDExZS05Zjg3LWM5MDQ1ZDc4M2E3NSJ9.6LqFaiw-nt8_4oZjlDOkkFxNwLPdcILEK40PFl8Rw6g
+
+{
+	"name": "Group B",
+	"description": "Second year students",
+	"subject": "Computer Science"
+}
+
+### delete group by id
+DELETE http://localhost:8000/api/v1/groups/848a45a6-9a45-4fa6-b0a6-a552e1964c33/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU1Njk3MjQ4LCJpYXQiOjE3NTU2ODY0NDgsImp0aSI6IjA4ODllYmM1YWJjODQ1MjU5MTQ3MzNjMjZlOTZhODkxIiwidXNlcl9pZCI6IjVlM2I5MDUzLTI4MGQtNDExZS05Zjg3LWM5MDQ1ZDc4M2E3NSJ9.6LqFaiw-nt8_4oZjlDOkkFxNwLPdcILEK40PFl8Rw6g

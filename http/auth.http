@@ -1,4 +1,12 @@
-### login to get tokens
+### refresh tokens
+POST http://localhost:8000/api/v1/token/refresh/
+Content-Type: application/json
+
+{
+	"refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NTc3Mjg0OCwiaWF0IjoxNzU1Njg2NDQ4LCJqdGkiOiIyYzEwZjQxMzgyZWU0ZWVmYTgyNDBkZGU1YzUwYTE0NyIsInVzZXJfaWQiOiI1ZTNiOTA1My0yODBkLTQxMWUtOWY4Ny1jOTA0NWQ3ODNhNzUifQ.s26rgoCYCljn15Vq7fXf7uNXtzYIPg_HkOb1L5h3u2Y"
+}
+
+### login as ADMIN to get tokens
 POST http://localhost:8000/api/v1/token/
 Content-Type: application/json
 
@@ -7,10 +15,11 @@ Content-Type: application/json
 	"password": "root1234"
 }
 
-### refresh tokens
-POST http://localhost:8000/api/v1/token/refresh/
+### login as TEACHER to get tokens
+POST http://localhost:8000/api/v1/token/
 Content-Type: application/json
 
 {
-	"refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NTY5NjI1NywiaWF0IjoxNzU1NjA5ODU3LCJqdGkiOiJjZGFmNmZjNzgwMDA0NzM4YmQyOGNlMWY5YWQxNGFhMSIsInVzZXJfaWQiOiI1ZTNiOTA1My0yODBkLTQxMWUtOWY4Ny1jOTA0NWQ3ODNhNzUifQ.rpwHDz3oYtiEaveUOEOhu9i3OlNvX-Si_NoVPCUZXJA"
+	"email": "sam@example.com",
+	"password": "newpassword123"
 }

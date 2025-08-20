@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
-from .permissions import IsAdmin
-from .models import Group, Student, Teacher
+from .models import Group, RoleType, Student, Teacher
+from .permissions import IsAdmin, IsAdminOrReadOnly
 from .serializers import StudentSerializer, TeacherSerializer, GroupSerializer
 
 
@@ -26,6 +26,27 @@ class TeacherViewSet(viewsets.ModelViewSet):
 
 
 class GroupViewSet(viewsets.ModelViewSet):
-    queryset = Group.objects.all()
     serializer_class = GroupSerializer
-    permission_classes = [IsAdmin]
+    permission_classes = [IsAdminOrReadOnly]
+
+    def get_queryset(self):
+        queryset = Group.objects.select_related("teacher", "teacher__user")
+        user = self.request.user
+
+        if not user.is_authenticated:
+            return queryset.none()
+
+        if user.role == RoleType.ADMIN:  # pyright: ignore[reportAttributeAccessIssue]
+            return queryset
+
+        if user.role == RoleType.TEACHER:  # pyright: ignore[reportAttributeAccessIssue]
+            return queryset.filter(teacher__user=user)
+
+        if user.role == RoleType.STUDENT:  # pyright: ignore[reportAttributeAccessIssue]
+            try:
+                student = Student.objects.only("group_id").get(user=user)
+            except Student.DoesNotExist:
+                return queryset.none()
+            return queryset.filter(pk=student.group.id)
+
+        return queryset.none()

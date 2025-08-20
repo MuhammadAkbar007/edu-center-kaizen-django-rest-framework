@@ -4,55 +4,7 @@ from django.contrib.auth import get_user_model
 from django.utils import timezone
 from rest_framework import serializers
 
-from .models import CustomUserManager, Group, Student, Teacher
-
-
-class GroupSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Group
-        fields = [
-            "id",
-            "name",
-            "description",
-            "subject",
-            "status",
-            "created_at",
-            "updated_at",
-        ]
-
-
-class StudentSerializer(serializers.ModelSerializer):
-    group = GroupSerializer(read_only=True)
-    group_id = serializers.PrimaryKeyRelatedField(
-        queryset=Group.objects.all(), source="group", write_only=True
-    )
-
-    class Meta:
-        model = Student
-        fields = [
-            "id",
-            "user",
-            "date_of_birth",
-            "enrollment_date",
-            "status",
-            "created_at",
-            "updated_at",
-            "group",
-            "group_id",
-        ]
-
-    def validate(self, attrs):
-        user = attrs["user"]
-
-        if user.role != "STUDENT":
-            raise serializers.ValidationError("Linked user must have role=STUDENT")
-
-        if Teacher.objects.filter(user=user).exists():
-            raise serializers.ValidationError(
-                "A user cannot be both a Teacher and a Student"
-            )
-
-        return attrs
+from .models import CustomUserManager, Group, Student, Teacher, RoleType
 
 
 class TeacherSerializer(serializers.ModelSerializer):
@@ -105,7 +57,7 @@ class TeacherSerializer(serializers.ModelSerializer):
             phone_number=user_data["phone_number"],
             email=user_data["email"],
             password=password,
-            role="TEACHER",
+            role=RoleType.TEACHER,
             is_staff=True,
         )
 
@@ -138,7 +90,71 @@ class TeacherSerializer(serializers.ModelSerializer):
         if User.objects.filter(email=email).exists():
             raise serializers.ValidationError("A user with this email already exists")
 
-        if User.objects.filter(email=email, role="STUDENT").exists():
+        if User.objects.filter(email=email, role=RoleType.STUDENT).exists():
+            raise serializers.ValidationError(
+                "A user cannot be both a Teacher and a Student"
+            )
+
+        return attrs
+
+
+class GroupSerializer(serializers.ModelSerializer):
+    teacher = TeacherSerializer(read_only=True)
+    teacher_id = serializers.PrimaryKeyRelatedField(
+        queryset=Teacher.objects.all(), source="teacher", write_only=True, required=True
+    )
+
+    class Meta:
+        model = Group
+        fields = [
+            "id",
+            "name",
+            "description",
+            "subject",
+            "status",
+            "teacher",  # read-only projection
+            "teacher_id",  # write-only FK for create/update
+            "created_at",
+            "updated_at",
+        ]
+        read_only_fields = ["id", "teacher", "created_at", "updated_at"]
+        extra_kwargs = {
+            "description": {"required": False, "allow_null": True, "allow_blank": True}
+        }
+
+    def validate(self, attrs):
+        if self.instance is None and "teacher" not in attrs:
+            raise serializers.ValidationError({"teacher_id": "This field is required."})
+        return attrs
+
+
+class StudentSerializer(serializers.ModelSerializer):
+    group = GroupSerializer(read_only=True)
+    group_id = serializers.PrimaryKeyRelatedField(
+        queryset=Group.objects.all(), source="group", write_only=True
+    )
+
+    class Meta:
+        model = Student
+        fields = [
+            "id",
+            "user",
+            "date_of_birth",
+            "enrollment_date",
+            "status",
+            "created_at",
+            "updated_at",
+            "group",
+            "group_id",
+        ]
+
+    def validate(self, attrs):
+        user = attrs["user"]
+
+        if user.role != RoleType.STUDENT:
+            raise serializers.ValidationError("Linked user must have role=STUDENT")
+
+        if Teacher.objects.filter(user=user).exists():
             raise serializers.ValidationError(
                 "A user cannot be both a Teacher and a Student"
             )

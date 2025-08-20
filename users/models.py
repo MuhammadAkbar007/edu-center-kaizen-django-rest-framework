@@ -10,7 +10,7 @@ class CustomUserManager(UserManager):
         if not email:
             raise ValueError("The Email field is required")
 
-        extra_fields.setdefault("role", "STUDENT")
+        extra_fields.setdefault("role", RoleType.STUDENT)
 
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
@@ -21,7 +21,7 @@ class CustomUserManager(UserManager):
     def create_superuser(self, email=None, password=None, **extra_fields):
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
-        extra_fields.setdefault("role", "ADMIN")
+        extra_fields.setdefault("role", RoleType.ADMIN)
 
         if extra_fields.get("is_staff") is not True:
             raise ValueError("Superuser must have is_staff=True.")
