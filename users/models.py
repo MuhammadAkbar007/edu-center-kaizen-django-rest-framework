@@ -77,7 +77,7 @@ class User(AbstractUser):
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     date_of_birth = models.DateField()
-    enrollment_date = models.DateField(default=timezone.now)
+    enrollment_date = models.DateField(default=timezone.localdate)
     status = models.CharField(
         max_length=20,
         choices=StudentStatus.choices,
@@ -108,7 +108,7 @@ class Teacher(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     specialization = models.CharField(max_length=100, blank=True, null=True)
     qualification = models.CharField(max_length=100, blank=True, null=True)
-    hired_date = models.DateField(default=timezone.now)
+    hired_date = models.DateField(default=timezone.localdate)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

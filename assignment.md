@@ -13,8 +13,8 @@ Project requirement is to manage the education center’s students, teachers and
 - [-] The teacher and student can only see his own groups, Admin can see all groups.
 
 - [-] Adding a student is done by the Admin or a teacher.
-- [-] When a student is added, he is assigned to a group.
-- [-] The admin can add a student to any group, but the teacher can only add students to the groups to which he is assigned.
+- [-] When a student is added, he/she is assigned to a group.
+- [-] The admin can add a student to any group, but the teacher can only add students to the groups to which he/she is assigned.
 - [x] Teacher CRUD
 - [x] Group CRUD
 - [ ] Student CRUD
