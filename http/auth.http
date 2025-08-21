@@ -3,7 +3,7 @@ POST http://localhost:8000/api/v1/token/refresh/
 Content-Type: application/json
 
 {
-	"refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NTgzOTc5MCwiaWF0IjoxNzU1NzUzMzkwLCJqdGkiOiJjNTZkNjIxYWFjYWQ0MWU1YWI3MjBhYzgxN2RmNDJiMSIsInVzZXJfaWQiOiI1ZTNiOTA1My0yODBkLTQxMWUtOWY4Ny1jOTA0NWQ3ODNhNzUifQ.97sS3TZUap5Z_XL7mQGXiW1uA2K5w-MOaGfiPA9NrRo"
+	"refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NTg1NzM2MywiaWF0IjoxNzU1NzcwOTYzLCJqdGkiOiI1MmZlYWQzNTQzZjE0YWQ0YjQyMjkwMWViZDk2Yjk2NyIsInVzZXJfaWQiOiI1ZTNiOTA1My0yODBkLTQxMWUtOWY4Ny1jOTA0NWQ3ODNhNzUifQ.wtgCbgYfAJvMvtZm2-Eh5IWVKLkISkCdHj_0yyKW0r4"
 }
 
 ### login as ADMIN to get tokens
@@ -22,4 +22,13 @@ Content-Type: application/json
 {
 	"email": "sam@example.com",
 	"password": "newpassword123"
+}
+
+### login as STUDENT to get tokens
+POST http://localhost:8000/api/v1/token/
+Content-Type: application/json
+
+{
+	"email": "vali@example.com",
+	"password": "StrongWord123"
 }

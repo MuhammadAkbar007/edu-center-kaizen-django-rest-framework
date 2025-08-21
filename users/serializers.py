@@ -226,7 +226,7 @@ class StudentSerializer(serializers.ModelSerializer):
         if email:
             qs = User.objects.filter(email=email)
             if instance:
-                qs = qs.exclude(pk=instance.user__id)
+                qs = qs.exclude(pk=instance.user.id)
             if qs.exists():
                 raise serializers.ValidationError(
                     {"email": "This email is already in use."}

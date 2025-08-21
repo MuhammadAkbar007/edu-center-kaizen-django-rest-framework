@@ -1,6 +1,6 @@
 ### create student
 POST http://localhost:8000/api/v1/students/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU1NzY0MTkwLCJpYXQiOjE3NTU3NTMzOTAsImp0aSI6IjczNjgzODcwOGFlYjRjYTY5ZTllY2JhMzcwYWVjNGEwIiwidXNlcl9pZCI6IjVlM2I5MDUzLTI4MGQtNDExZS05Zjg3LWM5MDQ1ZDc4M2E3NSJ9.Jb2N46CB1LvhuyPc5sl6anciWaiyrXlmnQMnAvpbSFg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU1Nzg0MzM1LCJpYXQiOjE3NTU3NzM1MzUsImp0aSI6IjQxZjAzM2Q0ZGY3NDRmMDliNDM2ZWM3YmZhZGVkMDY5IiwidXNlcl9pZCI6IjQ3YTVjNTQwLTdhNDYtNDcwNC1hYTNjLTllYWUxNTEyNjcwOSJ9.O3_FJzK6SWsi3Pzpm8IGIbtoNPGvb6f7c8srLI1pLhs
 Content-Type: application/json
 
 {
@@ -15,23 +15,23 @@ Content-Type: application/json
 
 ### read all students in pagination
 GET http://localhost:8000/api/v1/students/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU1NzY0MTkwLCJpYXQiOjE3NTU3NTMzOTAsImp0aSI6IjczNjgzODcwOGFlYjRjYTY5ZTllY2JhMzcwYWVjNGEwIiwidXNlcl9pZCI6IjVlM2I5MDUzLTI4MGQtNDExZS05Zjg3LWM5MDQ1ZDc4M2E3NSJ9.Jb2N46CB1LvhuyPc5sl6anciWaiyrXlmnQMnAvpbSFg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU1NzgxNzYzLCJpYXQiOjE3NTU3NzA5NjMsImp0aSI6IjgxNjMxOWFiOTUxMDRkNjg5NjcwMzgwNjk1YTdiNzg2IiwidXNlcl9pZCI6IjVlM2I5MDUzLTI4MGQtNDExZS05Zjg3LWM5MDQ1ZDc4M2E3NSJ9.fwKaQI7wchArmbiiXJg9Yy1GmLUaYndHqmb2nKS134g
 
 ### read student by id
 GET http://localhost:8000/api/v1/students/47c6190d-6793-41d0-acfc-2f2b71bdae61/
-Authorization: Bearer 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU1NzgxNzYzLCJpYXQiOjE3NTU3NzA5NjMsImp0aSI6IjgxNjMxOWFiOTUxMDRkNjg5NjcwMzgwNjk1YTdiNzg2IiwidXNlcl9pZCI6IjVlM2I5MDUzLTI4MGQtNDExZS05Zjg3LWM5MDQ1ZDc4M2E3NSJ9.fwKaQI7wchArmbiiXJg9Yy1GmLUaYndHqmb2nKS134g
 
 ### edit student by id
-PUT http://localhost:8000/api/v1/students/id/
-Authorization: Bearer 
+PATCH http://localhost:8000/api/v1/students/47c6190d-6793-41d0-acfc-2f2b71bdae61/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU1NzgxNzYzLCJpYXQiOjE3NTU3NzA5NjMsImp0aSI6IjgxNjMxOWFiOTUxMDRkNjg5NjcwMzgwNjk1YTdiNzg2IiwidXNlcl9pZCI6IjVlM2I5MDUzLTI4MGQtNDExZS05Zjg3LWM5MDQ1ZDc4M2E3NSJ9.fwKaQI7wchArmbiiXJg9Yy1GmLUaYndHqmb2nKS134g
 Content-Type: application/json
 
 {
-  "email": "aliyev@example.com",
-  "password": "newpassword123",
+  "email": "valiyev@example.com",
+  "password": "newpassword123"
 }
 
 ### delete student by id
-DELETE http://localhost:8000/api/v1/students/id/
-Authorization: Bearer 
+DELETE http://localhost:8000/api/v1/students/47c6190d-6793-41d0-acfc-2f2b71bdae61/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU1NzgxNzYzLCJpYXQiOjE3NTU3NzA5NjMsImp0aSI6IjgxNjMxOWFiOTUxMDRkNjg5NjcwMzgwNjk1YTdiNzg2IiwidXNlcl9pZCI6IjVlM2I5MDUzLTI4MGQtNDExZS05Zjg3LWM5MDQ1ZDc4M2E3NSJ9.fwKaQI7wchArmbiiXJg9Yy1GmLUaYndHqmb2nKS134g
 
